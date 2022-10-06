@@ -28,24 +28,6 @@ class Client extends _Modules_1.AbstractService {
         this.setApiKey(this.config.apiKey);
     }
     /**
-     * @returns {AppInfo|null} app information
-     */
-    getAppInfo() {
-        return this.appInfo;
-    }
-    /**
-     * @returns {string|null} api key or null
-     */
-    getApiKey() {
-        return this.config.apiKey;
-    }
-    /**
-     * @returns {EnvironmentEnum} environment
-     */
-    getEnvironment() {
-        return this.config.environment;
-    }
-    /**
      * @param {boolean|null} useSandboxEnv
      * @returns {ConfigType} config
      */
@@ -68,14 +50,6 @@ class Client extends _Modules_1.AbstractService {
         this.order = new _Modules_1.OrderService(apiBase);
     }
     /**
-     * Tests api connection
-     * @param {string} apiKey
-     * @returns {boolean} boolean
-     */
-    testConnection(apiKey) {
-        return this.public.test(apiKey);
-    }
-    /**
      * Config validator
      * @param {ConfigType} config
      */
@@ -88,25 +62,6 @@ class Client extends _Modules_1.AbstractService {
         if (![types_2.EnvironmentEnum.LIVE, types_2.EnvironmentEnum.SANDBOX].includes(environment)) {
             throw new _Exception_1.InvalidArgumentException(`Environment does not exist. Available environments: ${Object.values(types_2.EnvironmentEnum).join(', ')}`);
         }
-    }
-    /**
-     * @param {string|null} apiKey
-     */
-    setApiKey(apiKey) {
-        const config = Object.assign(Object.assign({}, this.config), { apiKey });
-        this.validateConfig(config);
-        this.config = config;
-        this.services.forEach((client) => client.setApiKey(this.config.apiKey));
-    }
-    /**
-     *
-     * @param {EnvironmentEnum|string} environment
-     */
-    setEnvironment(environment) {
-        const config = Object.assign(Object.assign({}, this.config), { environment: environment });
-        this.validateConfig(config);
-        this.config = config;
-        this.setBaseUrlByEnv(this.config.environment);
     }
     /**
      * @param {EnvironmentEnum} environment
@@ -123,6 +78,32 @@ class Client extends _Modules_1.AbstractService {
         });
     }
     /**
+     * @returns {AppInfo|null} app information
+     */
+    getAppInfo() {
+        return this.appInfo;
+    }
+    /**
+     * @returns {string|null} api key or null
+     */
+    getApiKey() {
+        return this.config.apiKey;
+    }
+    /**
+     * @returns {EnvironmentEnum} environment
+     */
+    getEnvironment() {
+        return this.config.environment;
+    }
+    /**
+     * Tests api connection
+     * @param {string} apiKey
+     * @returns {boolean} boolean
+     */
+    testConnection(apiKey) {
+        return this.public.test(apiKey);
+    }
+    /**
      * @param {AppInfo} appInfo
      */
     setAppInfo({ name, version }) {
@@ -135,6 +116,25 @@ class Client extends _Modules_1.AbstractService {
      */
     setRequestTimeout(timeout) {
         this.services.forEach((client) => client.setRequestTimeout(timeout));
+    }
+    /**
+    * @param {string|null} apiKey
+    */
+    setApiKey(apiKey) {
+        const config = Object.assign(Object.assign({}, this.config), { apiKey });
+        this.validateConfig(config);
+        this.config = config;
+        this.services.forEach((client) => client.setApiKey(this.config.apiKey));
+    }
+    /**
+     *
+     * @param {EnvironmentEnum|string} environment
+     */
+    setEnvironment(environment) {
+        const config = Object.assign(Object.assign({}, this.config), { environment: environment });
+        this.validateConfig(config);
+        this.config = config;
+        this.setBaseUrlByEnv(this.config.environment);
     }
 }
 exports.Client = Client;

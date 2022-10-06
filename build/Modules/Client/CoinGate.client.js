@@ -38,32 +38,28 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         this.apiKey = null;
     }
     /**
-     * Set request timeout
-     * @param {number} timeout
-     */
-    setRequestTimeout(timeout) {
-        this.timeout = timeout;
-    }
-    /**
-     * @param {string|null} apiKey
-     */
-    setApiKey(apiKey) {
-        this.validateApiKey(apiKey);
-        this.apiKey = apiKey;
-    }
-    /**
-     *
-     * @param {BaseUrlEnum} baseUrl
-     */
-    setBaseUrl(baseUrl) {
-        this.baseUrl = baseUrl;
-    }
-    /**
-     *
-     * @param {AppInfo} appInfo
-     */
-    setAppInfo({ name, version }) {
-        this.appInfo = { name, version };
+    *
+    * @param {RequestTypeEnum} requestType
+    * @param {string} apiKey
+    * @returns headers
+    */
+    getDefaultHeaders(requestType, apiKey) {
+        let headers;
+        // if (requestType === RequestTypeEnum.POST) {
+        //   headers = {
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   };
+        // }
+        if (this.apiKey) {
+            headers = Object.assign({ Authorization: `Bearer ${apiKey || this.apiKey}` }, headers);
+        }
+        if (this.appInfo) {
+            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${this.appInfo.name} ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})` }, headers);
+        }
+        else {
+            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})` }, headers);
+        }
+        return headers;
     }
     /**
      *
@@ -106,28 +102,32 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         });
     }
     /**
-     *
-     * @param {RequestTypeEnum} requestType
-     * @param {string} apiKey
-     * @returns headers
+     * Set request timeout
+     * @param {number} timeout
      */
-    getDefaultHeaders(requestType, apiKey) {
-        let headers;
-        // if (requestType === RequestTypeEnum.POST) {
-        //   headers = {
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   };
-        // }
-        if (this.apiKey) {
-            headers = Object.assign({ Authorization: `Bearer ${apiKey || this.apiKey}` }, headers);
-        }
-        if (this.appInfo) {
-            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${this.appInfo.name} ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})` }, headers);
-        }
-        else {
-            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})` }, headers);
-        }
-        return headers;
+    setRequestTimeout(timeout) {
+        this.timeout = timeout;
+    }
+    /**
+     * @param {string|null} apiKey
+     */
+    setApiKey(apiKey) {
+        this.validateApiKey(apiKey);
+        this.apiKey = apiKey;
+    }
+    /**
+     *
+     * @param {BaseUrlEnum} baseUrl
+     */
+    setBaseUrl(baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+    /**
+     *
+     * @param {AppInfo} appInfo
+     */
+    setAppInfo({ name, version }) {
+        this.appInfo = { name, version };
     }
 }
 exports.CoinGateClient = CoinGateClient;

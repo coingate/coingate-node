@@ -56,37 +56,46 @@ export class CoinGateClient extends AbstractService {
     this.apiKey = null;
   }
 
-  /**
-   * Set request timeout
-   * @param {number} timeout
-   */
-  public setRequestTimeout(timeout: number) {
-    this.timeout = timeout;
-  }
-
-  /**
-   * @param {string|null} apiKey
-   */
-  public setApiKey(apiKey: string | null) {
-    this.validateApiKey(apiKey);
-    this.apiKey = apiKey;
-  }
-
-  /**
+   /**
    *
-   * @param {BaseUrlEnum} baseUrl
+   * @param {RequestTypeEnum} requestType
+   * @param {string} apiKey
+   * @returns headers
    */
-  public setBaseUrl(baseUrl: BaseUrlEnum) {
-    this.baseUrl = baseUrl;
+  private getDefaultHeaders(requestType: RequestTypeEnum, apiKey?: string) {
+      let headers: HeadersType;
+  
+      // if (requestType === RequestTypeEnum.POST) {
+      //   headers = {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   };
+      // }
+  
+      if (this.apiKey) {
+        headers = {
+          Authorization: `Bearer ${apiKey || this.apiKey}`,
+          ...headers
+        };
+      }
+  
+      if (this.appInfo) {
+        headers = {
+          'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${
+            this.appInfo.name
+          } ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})`,
+          ...headers
+        };
+      } else {
+        headers = {
+          'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})`,
+          ...headers
+        };
+      }
+  
+      return headers;
   }
 
-  /**
-   *
-   * @param {AppInfo} appInfo
-   */
-  public setAppInfo({ name, version }: AppInfo) {
-    this.appInfo = { name, version };
-  }
+  
 
   /**
    *
@@ -129,42 +138,36 @@ export class CoinGateClient extends AbstractService {
     }
   }
 
+
+  /**
+   * Set request timeout
+   * @param {number} timeout
+   */
+  public setRequestTimeout(timeout: number) {
+    this.timeout = timeout;
+  }
+
+  /**
+   * @param {string|null} apiKey
+   */
+  public setApiKey(apiKey: string | null) {
+    this.validateApiKey(apiKey);
+    this.apiKey = apiKey;
+  }
+
   /**
    *
-   * @param {RequestTypeEnum} requestType
-   * @param {string} apiKey
-   * @returns headers
+   * @param {BaseUrlEnum} baseUrl
    */
-  private getDefaultHeaders(requestType: RequestTypeEnum, apiKey?: string) {
-    let headers: HeadersType;
+  public setBaseUrl(baseUrl: BaseUrlEnum) {
+    this.baseUrl = baseUrl;
+  }
 
-    // if (requestType === RequestTypeEnum.POST) {
-    //   headers = {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   };
-    // }
-
-    if (this.apiKey) {
-      headers = {
-        Authorization: `Bearer ${apiKey || this.apiKey}`,
-        ...headers
-      };
-    }
-
-    if (this.appInfo) {
-      headers = {
-        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${
-          this.appInfo.name
-        } ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})`,
-        ...headers
-      };
-    } else {
-      headers = {
-        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})`,
-        ...headers
-      };
-    }
-
-    return headers;
+  /**
+   *
+   * @param {AppInfo} appInfo
+   */
+  public setAppInfo({ name, version }: AppInfo) {
+    this.appInfo = { name, version };
   }
 }

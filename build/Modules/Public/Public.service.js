@@ -48,7 +48,7 @@ class PublicService extends CoinGate_client_1.CoinGateClient {
      * @param {string} separator
      * @returns ip addresses
      */
-    ipAddresses(separator) {
+    getIPAddresses(separator) {
         return this.get({ path: '/v2/ips-v4/', params: { separator } });
     }
     /**
@@ -74,16 +74,16 @@ class PublicService extends CoinGate_client_1.CoinGateClient {
         return this.getCurrencies({
             kind: types_1.CurrencyKindEnum.CRYPTO,
             native: true,
-            merchant_pay: true
+            merchant_pay: true,
+            enabled: true
         });
     }
     /**
-     * @param {CurrencyKindEnum} kind
      * @returns merchant pay currencies
      */
-    getMerchantPayCurrencies(kind) {
+    getMerchantPayCurrencies() {
         return this.getCurrencies({
-            kind,
+            kind: types_1.CurrencyKindEnum.CRYPTO,
             native: false,
             merchant_pay: true
         });

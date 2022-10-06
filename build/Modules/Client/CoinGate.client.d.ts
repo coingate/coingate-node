@@ -35,6 +35,26 @@ export declare class CoinGateClient extends AbstractService {
     /** @constructor */
     constructor(baseUrl: string);
     /**
+    *
+    * @param {RequestTypeEnum} requestType
+    * @param {string} apiKey
+    * @returns headers
+    */
+    private getDefaultHeaders;
+    /**
+     *
+     * @param {string} path
+     * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
+     * @returns {Promise}
+     */
+    protected post(path: string, body: CreateOrderRefundBody | CreateOrderBody | CheckoutBody): Promise<any>;
+    /**
+     *
+     * @param {GetRequestType} params
+     * @returns {Promise}
+     */
+    protected get({ path, params, apiKey }: GetRequestType): Promise<any>;
+    /**
      * Set request timeout
      * @param {number} timeout
      */
@@ -53,24 +73,4 @@ export declare class CoinGateClient extends AbstractService {
      * @param {AppInfo} appInfo
      */
     setAppInfo({ name, version }: AppInfo): void;
-    /**
-     *
-     * @param {string} path
-     * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
-     * @returns {Promise}
-     */
-    protected post(path: string, body: CreateOrderRefundBody | CreateOrderBody | CheckoutBody): Promise<any>;
-    /**
-     *
-     * @param {GetRequestType} params
-     * @returns {Promise}
-     */
-    protected get({ path, params, apiKey }: GetRequestType): Promise<any>;
-    /**
-     *
-     * @param {RequestTypeEnum} requestType
-     * @param {string} apiKey
-     * @returns headers
-     */
-    private getDefaultHeaders;
 }

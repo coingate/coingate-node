@@ -44,7 +44,7 @@ const handleErrorResponse = (error) => {
                 }
             case types_1.HttpStatusEnum.TOO_MANY_REQUESTS:
                 throw RateLimitException_1.RateLimitException.factory(response, status);
-            case types_1.HttpStatusEnum.ITERNAL_SERVER_ERROR | types_1.HttpStatusEnum.GATEWAY_TIMEOUT:
+            case types_1.HttpStatusEnum.INTERNAL_SERVER_ERROR | types_1.HttpStatusEnum.GATEWAY_TIMEOUT:
                 throw InternalServerError_1.InternalServerError.factory(response, status);
             default:
                 throw UnknownApiErrorException_1.UnknownApiErrorException.factory(response, status);

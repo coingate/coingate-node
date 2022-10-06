@@ -46,7 +46,7 @@ export class PublicService extends CoinGateClient {
    * @param {string} separator
    * @returns ip addresses
    */
-  public ipAddresses(separator?: string) {
+  public getIPAddresses(separator?: string) {
     return this.get({ path: '/v2/ips-v4/', params: { separator } });
   }
 
@@ -74,17 +74,17 @@ export class PublicService extends CoinGateClient {
     return this.getCurrencies({
       kind: CurrencyKindEnum.CRYPTO,
       native: true,
-      merchant_pay: true
+      merchant_pay: true,
+      enabled: true
     });
   }
 
   /**
-   * @param {CurrencyKindEnum} kind
    * @returns merchant pay currencies
    */
-  public getMerchantPayCurrencies(kind?: CurrencyKindEnum) {
+  public getMerchantPayCurrencies() {
     return this.getCurrencies({
-      kind,
+      kind: CurrencyKindEnum.CRYPTO,
       native: false,
       merchant_pay: true
     });

@@ -70,27 +70,6 @@ export class Client extends AbstractService {
   }
 
   /**
-   * @returns {AppInfo|null} app information
-   */
-  public getAppInfo() {
-    return this.appInfo;
-  }
-
-  /**
-   * @returns {string|null} api key or null
-   */
-  public getApiKey() {
-    return this.config.apiKey;
-  }
-
-  /**
-   * @returns {EnvironmentEnum} environment
-   */
-  public getEnvironment() {
-    return this.config.environment;
-  }
-
-  /**
    * @param {boolean|null} useSandboxEnv
    * @returns {ConfigType} config
    */
@@ -112,15 +91,6 @@ export class Client extends AbstractService {
     this.public = new PublicService(apiBase);
     this.refunds = new RefundsService(apiBase);
     this.order = new OrderService(apiBase);
-  }
-
-  /**
-   * Tests api connection
-   * @param {string} apiKey
-   * @returns {boolean} boolean
-   */
-  public testConnection(apiKey: string) {
-    return this.public.test(apiKey);
   }
 
   /**
@@ -148,6 +118,67 @@ export class Client extends AbstractService {
   }
 
   /**
+   * @param {EnvironmentEnum} environment
+   */
+  private setBaseUrlByEnv(environment: EnvironmentEnum) {
+    this.services.forEach((client) => {
+      switch (environment) {
+        case EnvironmentEnum.SANDBOX:
+          return client.setBaseUrl(BaseUrlEnum.SANDBOX_DEFAULT_API_BASE);
+        case EnvironmentEnum.LIVE:
+        default:
+          return client.setBaseUrl(BaseUrlEnum.DEFAULT_API_BASE);
+      }
+    });
+  }
+
+  /**
+   * @returns {AppInfo|null} app information
+   */
+  public getAppInfo() {
+    return this.appInfo;
+  }
+
+  /**
+   * @returns {string|null} api key or null
+   */
+  public getApiKey() {
+    return this.config.apiKey;
+  }
+
+  /**
+   * @returns {EnvironmentEnum} environment
+   */
+  public getEnvironment() {
+    return this.config.environment;
+  }
+
+  /**
+   * Tests api connection
+   * @param {string} apiKey
+   * @returns {boolean} boolean
+   */
+  public testConnection(apiKey: string) {
+    return this.public.test(apiKey);
+  }
+
+  /**
+   * @param {AppInfo} appInfo
+   */
+  public setAppInfo({ name, version }: AppInfo) {
+    this.appInfo = { name: name.trim(), version: version?.trim() };
+    this.services.forEach((client) => client.setAppInfo({ name, version }));
+  }
+
+  /**
+   * Set request timeout
+   * @param {number} timeout
+   */
+  public setRequestTimeout(timeout: number) {
+    this.services.forEach((client) => client.setRequestTimeout(timeout));
+  }
+
+  /**
    * @param {string|null} apiKey
    */
   public setApiKey(apiKey: string | null) {
@@ -171,36 +202,5 @@ export class Client extends AbstractService {
     this.validateConfig(config);
     this.config = config;
     this.setBaseUrlByEnv(this.config.environment);
-  }
-
-  /**
-   * @param {EnvironmentEnum} environment
-   */
-  private setBaseUrlByEnv(environment: EnvironmentEnum) {
-    this.services.forEach((client) => {
-      switch (environment) {
-        case EnvironmentEnum.SANDBOX:
-          return client.setBaseUrl(BaseUrlEnum.SANDBOX_DEFAULT_API_BASE);
-        case EnvironmentEnum.LIVE:
-        default:
-          return client.setBaseUrl(BaseUrlEnum.DEFAULT_API_BASE);
-      }
-    });
-  }
-
-  /**
-   * @param {AppInfo} appInfo
-   */
-  public setAppInfo({ name, version }: AppInfo) {
-    this.appInfo = { name: name.trim(), version: version?.trim() };
-    this.services.forEach((client) => client.setAppInfo({ name, version }));
-  }
-
-  /**
-   * Set request timeout
-   * @param {number} timeout
-   */
-  public setRequestTimeout(timeout: number) {
-    this.services.forEach((client) => client.setRequestTimeout(timeout));
   }
 }

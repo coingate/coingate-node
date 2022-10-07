@@ -1,5 +1,5 @@
 import { CoinGateClient } from '../src/Modules';
-import { BaseUrlEnum, RequestTypeEnum } from '../src/Modules/Client/types';
+import { BaseUrlEnum } from '../src/Modules/Client/types';
 
 import { mockConfig, mockWrongApiKeys } from './Mocks';
 
@@ -52,10 +52,7 @@ describe('CoinGate client', () => {
 
       expect(promise).toBeDefined();
       expect(getDefaultHeadersSpy).toHaveBeenCalledTimes(1);
-      expect(getDefaultHeadersSpy).toHaveBeenCalledWith(
-        RequestTypeEnum.GET,
-        undefined
-      );
+      expect(getDefaultHeadersSpy).toHaveBeenCalledWith(undefined);
     });
   });
 });

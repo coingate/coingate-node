@@ -6,12 +6,7 @@ import { CreateOrderRefundBody } from '#Modules/Refunds/types';
 import { CheckoutBody, CreateOrderBody } from '#Modules/Order/types';
 import { AppInfo } from '#types';
 
-import {
-  BaseUrlEnum,
-  GetRequestType,
-  HeadersType,
-  RequestTypeEnum
-} from './types';
+import { BaseUrlEnum, GetRequestType, HeadersType } from './types';
 
 /**
  * Class representing a CoinGate client
@@ -57,6 +52,80 @@ export class CoinGateClient extends AbstractService {
   }
 
   /**
+   *
+   * @param {RequestTypeEnum} requestType
+   * @param {string} apiKey
+   * @returns headers
+   */
+  private getDefaultHeaders(apiKey?: string) {
+    let headers: HeadersType;
+
+    if (this.apiKey) {
+      headers = {
+        Authorization: `Bearer ${apiKey || this.apiKey}`,
+        ...headers
+      };
+    }
+
+    if (this.appInfo) {
+      headers = {
+        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${
+          this.appInfo.name
+        } ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})`,
+        ...headers
+      };
+    } else {
+      headers = {
+        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})`,
+        ...headers
+      };
+    }
+
+    return headers;
+  }
+
+  /**
+   *
+   * @param {string} path
+   * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
+   * @returns {Promise}
+   */
+  protected async post(
+    path: string,
+    body: CreateOrderRefundBody | CreateOrderBody | CheckoutBody
+  ) {
+    try {
+      const { data } = await this.client.post(this.baseUrl + path, body, {
+        headers: this.getDefaultHeaders(),
+        timeout: this.timeout
+      });
+
+      return data;
+    } catch (e) {
+      handleErrorResponse(e as AxiosError);
+    }
+  }
+
+  /**
+   *
+   * @param {GetRequestType} params
+   * @returns {Promise}
+   */
+  protected async get({ path, params, apiKey }: GetRequestType) {
+    try {
+      const { data } = await this.client.get(this.baseUrl + path, {
+        params,
+        headers: this.getDefaultHeaders(apiKey),
+        timeout: this.timeout
+      });
+
+      return data;
+    } catch (e) {
+      handleErrorResponse(e as AxiosError);
+    }
+  }
+
+  /**
    * Set request timeout
    * @param {number} timeout
    */
@@ -86,85 +155,5 @@ export class CoinGateClient extends AbstractService {
    */
   public setAppInfo({ name, version }: AppInfo) {
     this.appInfo = { name, version };
-  }
-
-  /**
-   *
-   * @param {string} path
-   * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
-   * @returns {Promise}
-   */
-  protected async post(
-    path: string,
-    body: CreateOrderRefundBody | CreateOrderBody | CheckoutBody
-  ) {
-    try {
-      const { data } = await this.client.post(this.baseUrl + path, body, {
-        headers: this.getDefaultHeaders(RequestTypeEnum.POST),
-        timeout: this.timeout
-      });
-
-      return data;
-    } catch (e) {
-      handleErrorResponse(e as AxiosError);
-    }
-  }
-
-  /**
-   *
-   * @param {GetRequestType} params
-   * @returns {Promise}
-   */
-  protected async get({ path, params, apiKey }: GetRequestType) {
-    try {
-      const { data } = await this.client.get(this.baseUrl + path, {
-        params,
-        headers: this.getDefaultHeaders(RequestTypeEnum.GET, apiKey),
-        timeout: this.timeout
-      });
-
-      return data;
-    } catch (e) {
-      handleErrorResponse(e as AxiosError);
-    }
-  }
-
-  /**
-   *
-   * @param {RequestTypeEnum} requestType
-   * @param {string} apiKey
-   * @returns headers
-   */
-  private getDefaultHeaders(requestType: RequestTypeEnum, apiKey?: string) {
-    let headers: HeadersType;
-
-    // if (requestType === RequestTypeEnum.POST) {
-    //   headers = {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   };
-    // }
-
-    if (this.apiKey) {
-      headers = {
-        Authorization: `Bearer ${apiKey || this.apiKey}`,
-        ...headers
-      };
-    }
-
-    if (this.appInfo) {
-      headers = {
-        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${
-          this.appInfo.name
-        } ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})`,
-        ...headers
-      };
-    } else {
-      headers = {
-        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})`,
-        ...headers
-      };
-    }
-
-    return headers;
   }
 }

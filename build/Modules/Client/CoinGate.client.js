@@ -16,7 +16,6 @@ exports.CoinGateClient = void 0;
 const axios_1 = __importDefault(require("axios"));
 const Abstract_service_1 = require("../../Modules/AbstractService/Abstract.service");
 const Exception_1 = require("../../Exception");
-const types_1 = require("./types");
 /**
  * Class representing a CoinGate client
  * @extends AbstractService
@@ -36,6 +35,65 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         this.baseUrl = baseUrl;
         this.client = axios_1.default.create();
         this.apiKey = null;
+    }
+    /**
+     *
+     * @param {RequestTypeEnum} requestType
+     * @param {string} apiKey
+     * @returns headers
+     */
+    getDefaultHeaders(apiKey) {
+        let headers;
+        if (this.apiKey) {
+            headers = Object.assign({ Authorization: `Bearer ${apiKey || this.apiKey}` }, headers);
+        }
+        if (this.appInfo) {
+            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${this.appInfo.name} ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})` }, headers);
+        }
+        else {
+            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})` }, headers);
+        }
+        return headers;
+    }
+    /**
+     *
+     * @param {string} path
+     * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
+     * @returns {Promise}
+     */
+    post(path, body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { data } = yield this.client.post(this.baseUrl + path, body, {
+                    headers: this.getDefaultHeaders(),
+                    timeout: this.timeout
+                });
+                return data;
+            }
+            catch (e) {
+                (0, Exception_1.handleErrorResponse)(e);
+            }
+        });
+    }
+    /**
+     *
+     * @param {GetRequestType} params
+     * @returns {Promise}
+     */
+    get({ path, params, apiKey }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { data } = yield this.client.get(this.baseUrl + path, {
+                    params,
+                    headers: this.getDefaultHeaders(apiKey),
+                    timeout: this.timeout
+                });
+                return data;
+            }
+            catch (e) {
+                (0, Exception_1.handleErrorResponse)(e);
+            }
+        });
     }
     /**
      * Set request timeout
@@ -64,70 +122,6 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
      */
     setAppInfo({ name, version }) {
         this.appInfo = { name, version };
-    }
-    /**
-     *
-     * @param {string} path
-     * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
-     * @returns {Promise}
-     */
-    post(path, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { data } = yield this.client.post(this.baseUrl + path, body, {
-                    headers: this.getDefaultHeaders(types_1.RequestTypeEnum.POST),
-                    timeout: this.timeout
-                });
-                return data;
-            }
-            catch (e) {
-                (0, Exception_1.handleErrorResponse)(e);
-            }
-        });
-    }
-    /**
-     *
-     * @param {GetRequestType} params
-     * @returns {Promise}
-     */
-    get({ path, params, apiKey }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { data } = yield this.client.get(this.baseUrl + path, {
-                    params,
-                    headers: this.getDefaultHeaders(types_1.RequestTypeEnum.GET, apiKey),
-                    timeout: this.timeout
-                });
-                return data;
-            }
-            catch (e) {
-                (0, Exception_1.handleErrorResponse)(e);
-            }
-        });
-    }
-    /**
-     *
-     * @param {RequestTypeEnum} requestType
-     * @param {string} apiKey
-     * @returns headers
-     */
-    getDefaultHeaders(requestType, apiKey) {
-        let headers;
-        // if (requestType === RequestTypeEnum.POST) {
-        //   headers = {
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   };
-        // }
-        if (this.apiKey) {
-            headers = Object.assign({ Authorization: `Bearer ${apiKey || this.apiKey}` }, headers);
-        }
-        if (this.appInfo) {
-            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${this.appInfo.name} ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})` }, headers);
-        }
-        else {
-            headers = Object.assign({ 'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})` }, headers);
-        }
-        return headers;
     }
 }
 exports.CoinGateClient = CoinGateClient;

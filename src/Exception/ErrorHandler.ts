@@ -64,7 +64,8 @@ export const handleErrorResponse = (error: AxiosError) => {
       case HttpStatusEnum.TOO_MANY_REQUESTS:
         throw RateLimitException.factory(response, status);
 
-      case HttpStatusEnum.ITERNAL_SERVER_ERROR | HttpStatusEnum.GATEWAY_TIMEOUT:
+      case HttpStatusEnum.INTERNAL_SERVER_ERROR:
+      case HttpStatusEnum.GATEWAY_TIMEOUT:
         throw InternalServerError.factory(response, status);
 
       default:

@@ -15,6 +15,6 @@ var HttpStatusEnum;
     HttpStatusEnum[HttpStatusEnum["NOT_FOUND"] = 404] = "NOT_FOUND";
     HttpStatusEnum[HttpStatusEnum["UNPROCESSABLE_ENTITY"] = 422] = "UNPROCESSABLE_ENTITY";
     HttpStatusEnum[HttpStatusEnum["TOO_MANY_REQUESTS"] = 429] = "TOO_MANY_REQUESTS";
-    HttpStatusEnum[HttpStatusEnum["ITERNAL_SERVER_ERROR"] = 500] = "ITERNAL_SERVER_ERROR";
+    HttpStatusEnum[HttpStatusEnum["INTERNAL_SERVER_ERROR"] = 500] = "INTERNAL_SERVER_ERROR";
     HttpStatusEnum[HttpStatusEnum["GATEWAY_TIMEOUT"] = 504] = "GATEWAY_TIMEOUT";
 })(HttpStatusEnum = exports.HttpStatusEnum || (exports.HttpStatusEnum = {}));

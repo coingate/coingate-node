@@ -28,24 +28,6 @@ class Client extends _Modules_1.AbstractService {
         this.setApiKey(this.config.apiKey);
     }
     /**
-     * @returns {AppInfo|null} app information
-     */
-    getAppInfo() {
-        return this.appInfo;
-    }
-    /**
-     * @returns {string|null} api key or null
-     */
-    getApiKey() {
-        return this.config.apiKey;
-    }
-    /**
-     * @returns {EnvironmentEnum} environment
-     */
-    getEnvironment() {
-        return this.config.environment;
-    }
-    /**
      * @param {boolean|null} useSandboxEnv
      * @returns {ConfigType} config
      */
@@ -68,14 +50,6 @@ class Client extends _Modules_1.AbstractService {
         this.order = new _Modules_1.OrderService(apiBase);
     }
     /**
-     * Tests api connection
-     * @param {string} apiKey
-     * @returns {boolean} boolean
-     */
-    testConnection(apiKey) {
-        return this.public.test(apiKey);
-    }
-    /**
      * Config validator
      * @param {ConfigType} config
      */
@@ -88,6 +62,60 @@ class Client extends _Modules_1.AbstractService {
         if (![types_2.EnvironmentEnum.LIVE, types_2.EnvironmentEnum.SANDBOX].includes(environment)) {
             throw new _Exception_1.InvalidArgumentException(`Environment does not exist. Available environments: ${Object.values(types_2.EnvironmentEnum).join(', ')}`);
         }
+    }
+    /**
+     * @param {EnvironmentEnum} environment
+     */
+    setBaseUrlByEnv(environment) {
+        this.services.forEach((client) => {
+            switch (environment) {
+                case types_2.EnvironmentEnum.SANDBOX:
+                    return client.setBaseUrl(types_1.BaseUrlEnum.SANDBOX_DEFAULT_API_BASE);
+                case types_2.EnvironmentEnum.LIVE:
+                default:
+                    return client.setBaseUrl(types_1.BaseUrlEnum.DEFAULT_API_BASE);
+            }
+        });
+    }
+    /**
+     * @returns {AppInfo|null} app information
+     */
+    getAppInfo() {
+        return this.appInfo;
+    }
+    /**
+     * @returns {string|null} api key or null
+     */
+    getApiKey() {
+        return this.config.apiKey;
+    }
+    /**
+     * @returns {EnvironmentEnum} environment
+     */
+    getEnvironment() {
+        return this.config.environment;
+    }
+    /**
+     * Tests api connection
+     * @param {string} apiKey
+     * @returns {boolean} boolean
+     */
+    testConnection(apiKey) {
+        return this.public.test(apiKey);
+    }
+    /**
+     * @param {AppInfo} appInfo
+     */
+    setAppInfo({ name, version }) {
+        this.appInfo = { name: name.trim(), version: version === null || version === void 0 ? void 0 : version.trim() };
+        this.services.forEach((client) => client.setAppInfo({ name, version }));
+    }
+    /**
+     * Set request timeout
+     * @param {number} timeout
+     */
+    setRequestTimeout(timeout) {
+        this.services.forEach((client) => client.setRequestTimeout(timeout));
     }
     /**
      * @param {string|null} apiKey
@@ -107,34 +135,6 @@ class Client extends _Modules_1.AbstractService {
         this.validateConfig(config);
         this.config = config;
         this.setBaseUrlByEnv(this.config.environment);
-    }
-    /**
-     * @param {EnvironmentEnum} environment
-     */
-    setBaseUrlByEnv(environment) {
-        this.services.forEach((client) => {
-            switch (environment) {
-                case types_2.EnvironmentEnum.SANDBOX:
-                    return client.setBaseUrl(types_1.BaseUrlEnum.SANDBOX_DEFAULT_API_BASE);
-                case types_2.EnvironmentEnum.LIVE:
-                default:
-                    return client.setBaseUrl(types_1.BaseUrlEnum.DEFAULT_API_BASE);
-            }
-        });
-    }
-    /**
-     * @param {AppInfo} appInfo
-     */
-    setAppInfo({ name, version }) {
-        this.appInfo = { name: name.trim(), version: version === null || version === void 0 ? void 0 : version.trim() };
-        this.services.forEach((client) => client.setAppInfo({ name, version }));
-    }
-    /**
-     * Set request timeout
-     * @param {number} timeout
-     */
-    setRequestTimeout(timeout) {
-        this.services.forEach((client) => client.setRequestTimeout(timeout));
     }
 }
 exports.Client = Client;

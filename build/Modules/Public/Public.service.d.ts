@@ -26,7 +26,7 @@ export declare class PublicService extends CoinGateClient {
      * @param {string} separator
      * @returns ip addresses
      */
-    ipAddresses(separator?: string): Promise<any>;
+    getIPAddresses(separator?: string): Promise<any>;
     /**
      * Get Currencies
      * @param {Object} params
@@ -43,10 +43,9 @@ export declare class PublicService extends CoinGateClient {
      */
     getCheckoutCurrencies(): Promise<any>;
     /**
-     * @param {CurrencyKindEnum} kind
      * @returns merchant pay currencies
      */
-    getMerchantPayCurrencies(kind?: CurrencyKindEnum): Promise<any>;
+    getMerchantPayCurrencies(): Promise<any>;
     /**
      * @param {CurrencyKindEnum} kind
      * @returns merchant payout currencies

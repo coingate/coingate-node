@@ -8,10 +8,6 @@ export declare type HeadersType = {
     Authorization?: string;
     'User-Agent'?: string;
 };
-export declare enum RequestTypeEnum {
-    GET = "get",
-    POST = "post"
-}
 export declare enum BaseUrlEnum {
     SANDBOX_DEFAULT_API_BASE = "https://api-sandbox.coingate.com",
     DEFAULT_API_BASE = "https://api.coingate.com"

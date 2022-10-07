@@ -16,7 +16,6 @@ exports.CoinGateClient = void 0;
 const axios_1 = __importDefault(require("axios"));
 const Abstract_service_1 = require("../../Modules/AbstractService/Abstract.service");
 const Exception_1 = require("../../Exception");
-const types_1 = require("./types");
 /**
  * Class representing a CoinGate client
  * @extends AbstractService
@@ -38,18 +37,13 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         this.apiKey = null;
     }
     /**
-    *
-    * @param {RequestTypeEnum} requestType
-    * @param {string} apiKey
-    * @returns headers
-    */
-    getDefaultHeaders(requestType, apiKey) {
+     *
+     * @param {RequestTypeEnum} requestType
+     * @param {string} apiKey
+     * @returns headers
+     */
+    getDefaultHeaders(apiKey) {
         let headers;
-        // if (requestType === RequestTypeEnum.POST) {
-        //   headers = {
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   };
-        // }
         if (this.apiKey) {
             headers = Object.assign({ Authorization: `Bearer ${apiKey || this.apiKey}` }, headers);
         }
@@ -71,7 +65,7 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { data } = yield this.client.post(this.baseUrl + path, body, {
-                    headers: this.getDefaultHeaders(types_1.RequestTypeEnum.POST),
+                    headers: this.getDefaultHeaders(),
                     timeout: this.timeout
                 });
                 return data;
@@ -91,7 +85,7 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
             try {
                 const { data } = yield this.client.get(this.baseUrl + path, {
                     params,
-                    headers: this.getDefaultHeaders(types_1.RequestTypeEnum.GET, apiKey),
+                    headers: this.getDefaultHeaders(apiKey),
                     timeout: this.timeout
                 });
                 return data;

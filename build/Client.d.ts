@@ -80,8 +80,8 @@ export declare class Client extends AbstractService {
      */
     setRequestTimeout(timeout: number): void;
     /**
-    * @param {string|null} apiKey
-    */
+     * @param {string|null} apiKey
+     */
     setApiKey(apiKey: string | null): void;
     /**
      *

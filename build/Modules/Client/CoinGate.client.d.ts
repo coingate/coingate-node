@@ -35,11 +35,11 @@ export declare class CoinGateClient extends AbstractService {
     /** @constructor */
     constructor(baseUrl: string);
     /**
-    *
-    * @param {RequestTypeEnum} requestType
-    * @param {string} apiKey
-    * @returns headers
-    */
+     *
+     * @param {RequestTypeEnum} requestType
+     * @param {string} apiKey
+     * @returns headers
+     */
     private getDefaultHeaders;
     /**
      *

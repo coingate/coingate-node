@@ -118,8 +118,8 @@ class Client extends _Modules_1.AbstractService {
         this.services.forEach((client) => client.setRequestTimeout(timeout));
     }
     /**
-    * @param {string|null} apiKey
-    */
+     * @param {string|null} apiKey
+     */
     setApiKey(apiKey) {
         const config = Object.assign(Object.assign({}, this.config), { apiKey });
         this.validateConfig(config);

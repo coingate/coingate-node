@@ -116,7 +116,7 @@ export class Client extends AbstractService {
       );
     }
   }
- 
+
   /**
    * @param {EnvironmentEnum} environment
    */
@@ -135,7 +135,7 @@ export class Client extends AbstractService {
   /**
    * @returns {AppInfo|null} app information
    */
-   public getAppInfo() {
+  public getAppInfo() {
     return this.appInfo;
   }
 
@@ -178,7 +178,7 @@ export class Client extends AbstractService {
     this.services.forEach((client) => client.setRequestTimeout(timeout));
   }
 
-   /**
+  /**
    * @param {string|null} apiKey
    */
   public setApiKey(apiKey: string | null) {

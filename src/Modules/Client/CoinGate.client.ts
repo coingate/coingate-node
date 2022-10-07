@@ -56,46 +56,44 @@ export class CoinGateClient extends AbstractService {
     this.apiKey = null;
   }
 
-   /**
+  /**
    *
    * @param {RequestTypeEnum} requestType
    * @param {string} apiKey
    * @returns headers
    */
   private getDefaultHeaders(requestType: RequestTypeEnum, apiKey?: string) {
-      let headers: HeadersType;
-  
-      // if (requestType === RequestTypeEnum.POST) {
-      //   headers = {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   };
-      // }
-  
-      if (this.apiKey) {
-        headers = {
-          Authorization: `Bearer ${apiKey || this.apiKey}`,
-          ...headers
-        };
-      }
-  
-      if (this.appInfo) {
-        headers = {
-          'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${
-            this.appInfo.name
-          } ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})`,
-          ...headers
-        };
-      } else {
-        headers = {
-          'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})`,
-          ...headers
-        };
-      }
-  
-      return headers;
-  }
+    let headers: HeadersType;
 
-  
+    // if (requestType === RequestTypeEnum.POST) {
+    //   headers = {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   };
+    // }
+
+    if (this.apiKey) {
+      headers = {
+        Authorization: `Bearer ${apiKey || this.apiKey}`,
+        ...headers
+      };
+    }
+
+    if (this.appInfo) {
+      headers = {
+        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION}, ${
+          this.appInfo.name
+        } ${this.appInfo.version ? 'v ' + this.appInfo.version : ''})`,
+        ...headers
+      };
+    } else {
+      headers = {
+        'User-Agent': `Coingate/v2 (Node.js library v ${this.VERSION})`,
+        ...headers
+      };
+    }
+
+    return headers;
+  }
 
   /**
    *
@@ -137,7 +135,6 @@ export class CoinGateClient extends AbstractService {
       handleErrorResponse(e as AxiosError);
     }
   }
-
 
   /**
    * Set request timeout

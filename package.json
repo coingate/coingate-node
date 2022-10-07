@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run clean && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "clean": "del ./build/*",
-    "lint": "eslint",
+    "lint": "eslint '{src,apps,libs,test}/**/*.ts'",
     "lint:fix": "eslint '{src,apps,libs,test}/**/*.ts' --fix",
     "test": "jest"
   },

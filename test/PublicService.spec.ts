@@ -23,13 +23,13 @@ describe('Public client', () => {
       const result = publicService.getExchangeRate(mockExchangeRateData);
 
       expect(result).toBeDefined();
-      expect(buildPathSpy).toBeCalledTimes(1);
-      expect(buildPathSpy).toBeCalledWith({
+      expect(buildPathSpy).toHaveBeenCalledTimes(1);
+      expect(buildPathSpy).toHaveBeenCalledWith({
         path: '/v2/rates/merchant/:from/:to',
         params: mockExchangeRateData
       });
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: `/v2/rates/merchant/${mockExchangeRateData.from}/${mockExchangeRateData.to}`
       });
     });
@@ -40,8 +40,8 @@ describe('Public client', () => {
       const result = publicService.listExchangeRates();
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({ path: '/v2/rates/' });
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({ path: '/v2/rates/' });
     });
   });
 
@@ -50,8 +50,8 @@ describe('Public client', () => {
       const result = publicService.ping();
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({ path: '/v2/ping/' });
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({ path: '/v2/ping/' });
     });
   });
 
@@ -60,8 +60,8 @@ describe('Public client', () => {
       const result = publicService.getIPAddresses(mockSeparator);
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: '/v2/ips-v4/',
         params: { separator: mockSeparator }
       });
@@ -71,8 +71,8 @@ describe('Public client', () => {
       const result = publicService.getIPAddresses();
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: '/v2/ips-v4/',
         params: { separator: undefined }
       });
@@ -84,8 +84,8 @@ describe('Public client', () => {
       const result = publicService.getCurrencies(mockGetCurrenciesData);
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: '/v2/currencies/',
         params: mockGetCurrenciesData
       });
@@ -95,8 +95,8 @@ describe('Public client', () => {
       const result = publicService.getCurrencies();
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: '/v2/currencies/',
         params: undefined
       });
@@ -110,8 +110,8 @@ describe('Public client', () => {
       const result = publicService.getCheckoutCurrencies();
 
       expect(result).toBeDefined();
-      expect(getCurrenciesSpy).toBeCalledTimes(1);
-      expect(getCurrenciesSpy).toBeCalledWith({
+      expect(getCurrenciesSpy).toHaveBeenCalledTimes(1);
+      expect(getCurrenciesSpy).toHaveBeenCalledWith({
         kind: CurrencyKindEnum.CRYPTO,
         native: true,
         merchant_pay: true,
@@ -127,8 +127,8 @@ describe('Public client', () => {
       const result = publicService.getMerchantPayCurrencies();
 
       expect(result).toBeDefined();
-      expect(getCurrenciesSpy).toBeCalledTimes(1);
-      expect(getCurrenciesSpy).toBeCalledWith({
+      expect(getCurrenciesSpy).toHaveBeenCalledTimes(1);
+      expect(getCurrenciesSpy).toHaveBeenCalledWith({
         kind: CurrencyKindEnum.CRYPTO,
         native: false,
         merchant_pay: true
@@ -145,8 +145,8 @@ describe('Public client', () => {
       );
 
       expect(result).toBeDefined();
-      expect(getCurrenciesSpy).toBeCalledTimes(1);
-      expect(getCurrenciesSpy).toBeCalledWith({
+      expect(getCurrenciesSpy).toHaveBeenCalledTimes(1);
+      expect(getCurrenciesSpy).toHaveBeenCalledWith({
         kind: CurrencyKindEnum.CRYPTO,
         native: false,
         merchant_pay: false,
@@ -160,8 +160,8 @@ describe('Public client', () => {
       const result = publicService.getMerchantPayoutCurrencies();
 
       expect(result).toBeDefined();
-      expect(getCurrenciesSpy).toBeCalledTimes(1);
-      expect(getCurrenciesSpy).toBeCalledWith({
+      expect(getCurrenciesSpy).toHaveBeenCalledTimes(1);
+      expect(getCurrenciesSpy).toHaveBeenCalledWith({
         kind: undefined,
         native: false,
         merchant_pay: false,
@@ -175,8 +175,8 @@ describe('Public client', () => {
       const result = publicService.getPlatforms(true);
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: '/v2/currencies/',
         params: { enabled: 'true' }
       });
@@ -188,8 +188,8 @@ describe('Public client', () => {
       const result = publicService.test(mockConfig.apiKey);
 
       expect(result).toBeDefined();
-      expect(getSpy).toBeCalledTimes(1);
-      expect(getSpy).toBeCalledWith({
+      expect(getSpy).toHaveBeenCalledTimes(1);
+      expect(getSpy).toHaveBeenCalledWith({
         path: '/v2/auth/test',
         apiKey: mockConfig.apiKey
       });

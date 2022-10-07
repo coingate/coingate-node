@@ -55,9 +55,9 @@ describe('Public client', () => {
     });
   });
 
-  describe('ipAddresses method', () => {
+  describe('getIPAddresses method', () => {
     test('should call get with path /v2/ips-v4/ and pass separator param', () => {
-      const result = publicService.ipAddresses(mockSeparator);
+      const result = publicService.getIPAddresses(mockSeparator);
 
       expect(result).toBeDefined();
       expect(getSpy).toBeCalledTimes(1);
@@ -68,7 +68,7 @@ describe('Public client', () => {
     });
 
     test('should call get with path /v2/ips-v4/ and pass undefined separator param when it is not provided', () => {
-      const result = publicService.ipAddresses();
+      const result = publicService.getIPAddresses();
 
       expect(result).toBeDefined();
       expect(getSpy).toBeCalledTimes(1);
@@ -114,28 +114,13 @@ describe('Public client', () => {
       expect(getCurrenciesSpy).toBeCalledWith({
         kind: CurrencyKindEnum.CRYPTO,
         native: true,
-        merchant_pay: true
+        merchant_pay: true,
+        enabled: true
       });
     });
   });
 
   describe('getMerchantPayCurrencies method', () => {
-    test('should call getCurrencies method with params for merchant pay currencies and selected currency kind', () => {
-      const getCurrenciesSpy = jest.spyOn(publicService, 'getCurrencies');
-
-      const result = publicService.getMerchantPayCurrencies(
-        CurrencyKindEnum.FIAT
-      );
-
-      expect(result).toBeDefined();
-      expect(getCurrenciesSpy).toBeCalledTimes(1);
-      expect(getCurrenciesSpy).toBeCalledWith({
-        kind: CurrencyKindEnum.FIAT,
-        native: false,
-        merchant_pay: true
-      });
-    });
-
     test('should call getCurrencies method with params for merchant pay currencies', () => {
       const getCurrenciesSpy = jest.spyOn(publicService, 'getCurrencies');
 
@@ -144,7 +129,7 @@ describe('Public client', () => {
       expect(result).toBeDefined();
       expect(getCurrenciesSpy).toBeCalledTimes(1);
       expect(getCurrenciesSpy).toBeCalledWith({
-        kind: undefined,
+        kind: CurrencyKindEnum.CRYPTO,
         native: false,
         merchant_pay: true
       });

@@ -6,12 +6,7 @@ import { CreateOrderRefundBody } from '#Modules/Refunds/types';
 import { CheckoutBody, CreateOrderBody } from '#Modules/Order/types';
 import { AppInfo } from '#types';
 
-import {
-  BaseUrlEnum,
-  GetRequestType,
-  HeadersType,
-  RequestTypeEnum
-} from './types';
+import { BaseUrlEnum, GetRequestType, HeadersType } from './types';
 
 /**
  * Class representing a CoinGate client
@@ -62,14 +57,8 @@ export class CoinGateClient extends AbstractService {
    * @param {string} apiKey
    * @returns headers
    */
-  private getDefaultHeaders(requestType: RequestTypeEnum, apiKey?: string) {
+  private getDefaultHeaders(apiKey?: string) {
     let headers: HeadersType;
-
-    // if (requestType === RequestTypeEnum.POST) {
-    //   headers = {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   };
-    // }
 
     if (this.apiKey) {
       headers = {
@@ -107,7 +96,7 @@ export class CoinGateClient extends AbstractService {
   ) {
     try {
       const { data } = await this.client.post(this.baseUrl + path, body, {
-        headers: this.getDefaultHeaders(RequestTypeEnum.POST),
+        headers: this.getDefaultHeaders(),
         timeout: this.timeout
       });
 
@@ -126,7 +115,7 @@ export class CoinGateClient extends AbstractService {
     try {
       const { data } = await this.client.get(this.baseUrl + path, {
         params,
-        headers: this.getDefaultHeaders(RequestTypeEnum.GET, apiKey),
+        headers: this.getDefaultHeaders(apiKey),
         timeout: this.timeout
       });
 

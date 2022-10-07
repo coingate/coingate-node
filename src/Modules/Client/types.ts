@@ -10,11 +10,6 @@ export type HeadersType = {
   'User-Agent'?: string;
 };
 
-export enum RequestTypeEnum {
-  GET = 'get',
-  POST = 'post'
-}
-
 export enum BaseUrlEnum {
   SANDBOX_DEFAULT_API_BASE = 'https://api-sandbox.coingate.com',
   DEFAULT_API_BASE = 'https://api.coingate.com'

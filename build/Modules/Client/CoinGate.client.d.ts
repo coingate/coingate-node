@@ -9,7 +9,7 @@ import { BaseUrlEnum, GetRequestType } from './types';
  */
 export declare class CoinGateClient extends AbstractService {
     /**
-     * @description Coingate-sdk version
+     * @description Coingate-node version
      */
     private VERSION;
     /**

@@ -1,11 +1,11 @@
-# coingate-sdk
+# coingate-client
 
 [![npm package][npm-img]][npm-url]
 
 ## Install
 
 ```bash
-npm install coingate-sdk
+npm install coingate-client
 ```
 
 ## Getting Started
@@ -58,17 +58,22 @@ const data = {
 };
 
 (async () => {
-try {
-  const order = await client.order.createOrder(data);
-} catch (error) {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const order = await client.order.createOrder(data);
+  } catch (error) {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
 ```
+
 Or
+
 ```ts
-client.order.createOrder(data).then(order => console.log(order)).catch(error => console.log(error))
+client.order
+  .createOrder(data)
+  .then((order) => console.log(order))
+  .catch((error) => console.log(error));
 ```
 
 #### Checkout
@@ -84,17 +89,22 @@ const data = {
 };
 
 (async () => {
-try {
-  const checkout = await client.order.checkout(1234, data);
-} catch (error) {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const checkout = await client.order.checkout(1234, data);
+  } catch (error) {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
 ```
+
 Or
+
 ```ts
-client.order.checkout(data).then(checkout => console.log(checkout)).catch(error => console.log(error))
+client.order
+  .checkout(data)
+  .then((checkout) => console.log(checkout))
+  .catch((error) => console.log(error));
 ```
 
 #### Get Order
@@ -103,18 +113,22 @@ After creating an order, you will get an ORDER ID. This ID will be used for GET 
 
 ```ts
 (async () => {
-try {
-  const order = await client.order.getOrder(1234); // order id
-} catch (error) {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const order = await client.order.getOrder(1234); // order id
+  } catch (error) {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
-
 ```
+
 Or
+
 ```ts
-client.order.getOrder(1234).then(order => console.log(order)).catch(error => console.log(error))
+client.order
+  .getOrder(1234)
+  .then((order) => console.log(order))
+  .catch((error) => console.log(error));
 ```
 
 #### List Orders
@@ -131,18 +145,22 @@ const data = {
 }; // all parameters are optional
 
 (async () => {
-try {
-  const orders = await client.order.listOrders(data); // data is optional
-} catch (error) {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const orders = await client.order.listOrders(data); // data is optional
+  } catch (error) {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
-
 ```
+
 Or
+
 ```ts
-client.order.listOrders(data).then(orders => console.log(orders)).catch(error => console.log(error))
+client.order
+  .listOrders(data)
+  .then((orders) => console.log(orders))
+  .catch((error) => console.log(error));
 ```
 
 ### Refunds
@@ -164,18 +182,22 @@ const data = {
 };
 
 (async () => {
-try {
-  const refund = await client.refunds.createOrderRefund(1234, data);
-} catch {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const refund = await client.refunds.createOrderRefund(1234, data);
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
-
 ```
+
 Or
+
 ```ts
-client.refunds.createOrderRefund(1234, data).then(refund => console.log(refund)).catch(error => console.log(error))
+client.refunds
+  .createOrderRefund(1234, data)
+  .then((refund) => console.log(refund))
+  .catch((error) => console.log(error));
 ```
 
 #### Get Order Refund
@@ -184,17 +206,22 @@ Retrieving a specific refund for an order.
 
 ```ts
 (async () => {
-try {
-  const refund = await client.refunds.getOrderRefund(1234, 4321);
-} catch {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const refund = await client.refunds.getOrderRefund(1234, 4321);
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
 ```
+
 Or
+
 ```ts
-client.refunds.getOrderRefund(1234, 4321).then(refund => console.log(refund)).catch(error => console.log(error))
+client.refunds
+  .getOrderRefund(1234, 4321)
+  .then((refund) => console.log(refund))
+  .catch((error) => console.log(error));
 ```
 
 #### Get Order Refunds
@@ -203,17 +230,22 @@ Retrieving all refunds for an order.
 
 ```ts
 (async () => {
-try {
-  const refund = await client.refunds.getOrderRefunds(1234);
-} catch {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const refund = await client.refunds.getOrderRefunds(1234);
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
 ```
+
 Or
+
 ```ts
-client.refunds.getOrderRefunds(1234).then(refunds => console.log(refunds)).catch(error => console.log(error))
+client.refunds
+  .getOrderRefunds(1234)
+  .then((refunds) => console.log(refunds))
+  .catch((error) => console.log(error));
 ```
 
 #### Get Refunds
@@ -222,17 +254,22 @@ Retrieving all refunds.
 
 ```ts
 (async () => {
-try {
-  const refunds = await client.refunds.getRefunds();
-} catch {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const refunds = await client.refunds.getRefunds();
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
 ```
+
 Or
+
 ```ts
-client.refunds.getRefunds().then(refunds => console.log(refunds)).catch(error => console.log(error))
+client.refunds
+  .getRefunds()
+  .then((refunds) => console.log(refunds))
+  .catch((error) => console.log(error));
 ```
 
 ### Public API
@@ -243,21 +280,25 @@ Current exchange rate for any two currencies, fiat or crypto. This endpoint is p
 
 ```ts
 (async () => {
-try {
-  const exchangeRate = await client.public.getExchangeRate({
-  from: 'GBP',
-  to: 'USD'
-});
-} catch {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const exchangeRate = await client.public.getExchangeRate({
+      from: 'GBP',
+      to: 'USD'
+    });
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
-
 ```
+
 Or
+
 ```ts
-client.public.getExchangeRate({ from: 'GBP', to: 'USD' }).then(exchangeRate => console.log(exchangeRate)).catch(error => console.log(error))
+client.public
+  .getExchangeRate({ from: 'GBP', to: 'USD' })
+  .then((exchangeRate) => console.log(exchangeRate))
+  .catch((error) => console.log(error));
 ```
 
 #### List Exchange Rates
@@ -266,18 +307,22 @@ Current CoinGate exchange rates for Merchants and Traders. This endpoint is publ
 
 ```ts
 (async () => {
-try {
-  const exchangeRates = await client.public.listExchangeRates();
-} catch {
-  // Oops... Something went wrong...
-  console.error(error);
-}
+  try {
+    const exchangeRates = await client.public.listExchangeRates();
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
 })();
-
 ```
+
 Or
+
 ```ts
-client.public.getExchangeRates().then(exchangeRates => console.log(exchangeRates)).catch(error => console.log(error))
+client.public
+  .getExchangeRates()
+  .then((exchangeRates) => console.log(exchangeRates))
+  .catch((error) => console.log(error));
 ```
 
 #### Ping
@@ -286,12 +331,14 @@ A health check endpoint for CoinGate API. This endpoint is public, authenticatio
 
 ```ts
 (async () => {
-const pong = await client.public.ping();
+  const pong = await client.public.ping();
 })();
 ```
+
 Or
+
 ```ts
-client.public.ping().then(pong => console.log(pong))
+client.public.ping().then((pong) => console.log(pong));
 ```
 
 #### IP Addresses
@@ -305,8 +352,7 @@ const addresses = await client.public.getIPAddresses(); // Possible to provide s
 #### Currencies
 
 ```ts
-
-// Search parameters can be passed, 
+// Search parameters can be passed,
 // {
 //   native?: boolean;
 //   enabled?: boolean;
@@ -340,17 +386,19 @@ const result = client.testConnection('YOUR_API_KEY');
 ```
 
 #### Set app info
+
 You can set custom app information
 
 ```ts
-client.setAppInfo({ name: 'My App', version: '0.0.2.9' })
+client.setAppInfo({ name: 'My App', version: '0.0.2.9' });
 ```
 
 #### Set Timeout
+
 You can set custom request timeout
 
 ```ts
-client.setTimeout(30000)
+client.setTimeout(30000);
 ```
 
 [npm-img]: https://i.imgur.com/Vn5jUDi.png

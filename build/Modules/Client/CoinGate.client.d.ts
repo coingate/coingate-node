@@ -8,69 +8,72 @@ import { BaseUrlEnum, GetRequestType } from './types';
  * @extends AbstractService
  */
 export declare class CoinGateClient extends AbstractService {
-    /**
-     * @description Coingate-node version
-     */
-    private VERSION;
-    /**
-     * @description Axios instance
-     */
-    private client;
-    /**
-     * @description api key for requests
-     */
-    private apiKey;
-    /**
-     * @description default request timeout is 30 seconds
-     */
-    private timeout;
-    /**
-     * @description base url
-     */
-    protected baseUrl: string;
-    /**
-     * @description App information set by user
-     */
-    protected appInfo: AppInfo | undefined;
-    /** @constructor */
-    constructor(baseUrl: string);
-    /**
-     *
-     * @param {RequestTypeEnum} requestType
-     * @param {string} apiKey
-     * @returns headers
-     */
-    private getDefaultHeaders;
-    /**
-     *
-     * @param {string} path
-     * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
-     * @returns {Promise}
-     */
-    protected post(path: string, body: CreateOrderRefundBody | CreateOrderBody | CheckoutBody): Promise<any>;
-    /**
-     *
-     * @param {GetRequestType} params
-     * @returns {Promise}
-     */
-    protected get({ path, params, apiKey }: GetRequestType): Promise<any>;
-    /**
-     * Set request timeout
-     * @param {number} timeout
-     */
-    setRequestTimeout(timeout: number): void;
-    /**
-     * @param {string|null} apiKey
-     */
-    setApiKey(apiKey: string | null): void;
-    /**
-     *
-     * @param {BaseUrlEnum} baseUrl
-     */
-    setBaseUrl(baseUrl: BaseUrlEnum): void;
-    /**
-     *
-     * @param {AppInfo} appInfo
-     */
-    setAppInfo({ name, version }: AppInfo): void;
+  /**
+   * @description coingate-client version
+   */
+  private VERSION;
+  /**
+   * @description Axios instance
+   */
+  private client;
+  /**
+   * @description api key for requests
+   */
+  private apiKey;
+  /**
+   * @description default request timeout is 30 seconds
+   */
+  private timeout;
+  /**
+   * @description base url
+   */
+  protected baseUrl: string;
+  /**
+   * @description App information set by user
+   */
+  protected appInfo: AppInfo | undefined;
+  /** @constructor */
+  constructor(baseUrl: string);
+  /**
+   *
+   * @param {RequestTypeEnum} requestType
+   * @param {string} apiKey
+   * @returns headers
+   */
+  private getDefaultHeaders;
+  /**
+   *
+   * @param {string} path
+   * @param {CreateOrderRefundBody|CreateOrderBody|CheckoutBody} body
+   * @returns {Promise}
+   */
+  protected post(
+    path: string,
+    body: CreateOrderRefundBody | CreateOrderBody | CheckoutBody
+  ): Promise<any>;
+  /**
+   *
+   * @param {GetRequestType} params
+   * @returns {Promise}
+   */
+  protected get({ path, params, apiKey }: GetRequestType): Promise<any>;
+  /**
+   * Set request timeout
+   * @param {number} timeout
+   */
+  setRequestTimeout(timeout: number): void;
+  /**
+   * @param {string|null} apiKey
+   */
+  setApiKey(apiKey: string | null): void;
+  /**
+   *
+   * @param {BaseUrlEnum} baseUrl
+   */
+  setBaseUrl(baseUrl: BaseUrlEnum): void;
+  /**
+   *
+   * @param {AppInfo} appInfo
+   */
+  setAppInfo({ name, version }: AppInfo): void;
 }

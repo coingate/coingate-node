@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./build",
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
+    "baseUrl": ".",
+    "paths": {
+      "#*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "test", "examples"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

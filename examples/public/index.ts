@@ -5,9 +5,9 @@ const separator = ', myAwesomeSeparator, '; // You choose how you want to separa
 
 const client = new Client(); // You don't need api key for public methods
 
-const getIpAdresses = async () => {
+const getIpAddresses = async () => {
   try {
-    const addresses = await client.public.ipAddresses(separator);
+    const addresses = await client.public.getIPAddresses(separator);
     return addresses;
   } catch (e) {
     console.log(e);
@@ -30,7 +30,7 @@ const getCurrencies = async () => {
 };
 
 const init = async () => {
-  const addresses = await getIpAdresses();
+  const addresses = await getIpAddresses();
   const currencies = await getCurrencies();
 
   console.log({ addresses, currencies });

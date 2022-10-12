@@ -25,7 +25,7 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
     constructor(baseUrl) {
         super();
         /**
-         * @description coingate-client version
+         * @description coingate-sdk version
          */
         this.VERSION = '1.0.0';
         /**

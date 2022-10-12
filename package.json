@@ -1,5 +1,5 @@
 {
-  "name": "coingate-client",
+  "name": "coingate-sdk",
   "version": "1.0.0",
   "description": "Coingate package",
   "main": "./build/index.js",

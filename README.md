@@ -1,11 +1,11 @@
-# coingate-client
+# coingate-sdk
 
 [![npm package][npm-img]][npm-url]
 
 ## Install
 
 ```bash
-npm install coingate-client
+npm install coingate-sdk
 ```
 
 ## Getting Started

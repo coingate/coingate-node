@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm install coingate-sdk
+npm install @coingate/coingate-sdk
 ```
 
 ## Getting Started

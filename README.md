@@ -305,9 +305,12 @@ client.ledger
 Retrieving all accounts.
 
 ```ts
+const searchParams = { page: 2, per_page: 29 };
+
 (async () => {
   try {
-    const accounts = await client.ledger.getAccounts();
+    // search params is optional, and default is { page: 1, per_page: 100 }
+    const accounts = await client.ledger.getAccounts(searchParams);
   } catch {
     // Oops... Something went wrong...
     console.error(error);
@@ -355,9 +358,12 @@ client.withdrawals
 Retrieving all withdrawals.
 
 ```ts
+const searchParams = { page: 2, per_page: 29 };
+
 (async () => {
   try {
-    const withdrawals = await client.withdrawals.getWithdrawals();
+    // search params is optional, and default is { page: 1, per_page: 100 }
+    const withdrawals = await client.withdrawals.getWithdrawals(searchParams);
   } catch {
     // Oops... Something went wrong...
     console.error(error);

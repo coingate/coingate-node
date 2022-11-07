@@ -70,7 +70,7 @@ export const mockSearchParams = {
   per_page: faker.datatype.number(100)
 };
 
-const formattedParams = () => {
+const getFormattedParams = () => {
   const formattedParams = new URLSearchParams();
 
   formattedParams.append('page', mockSearchParams.page.toString());
@@ -79,6 +79,6 @@ const formattedParams = () => {
   return formattedParams;
 };
 
-export const mockFormattedParams = formattedParams();
+export const mockFormattedParams = getFormattedParams();
 
 export const mockWithdrawalId = faker.datatype.number(500);

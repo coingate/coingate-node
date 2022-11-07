@@ -53,7 +53,7 @@ export declare class CoinGateClient extends AbstractService {
      * @param {GetRequestType} params
      * @returns {Promise}
      */
-    protected get({ path, params, apiKey }: GetRequestType): Promise<any>;
+    protected get({ path, params, apiKey, searchParams }: GetRequestType): Promise<any>;
     /**
      * Set request timeout
      * @param {number} timeout

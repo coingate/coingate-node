@@ -45,11 +45,11 @@ class AbstractService {
      * @param {PaginationParams} params
      */
     formatPaginationParams(params) {
-        params ? null : (params = this.defaultPaginationParams);
-        const searchParams = new URLSearchParams();
-        searchParams.append('page', params.page.toString());
-        searchParams.append('per_page', params.per_page.toString());
-        return searchParams;
+        const searchParams = params || this.defaultPaginationParams;
+        const formattedParams = new URLSearchParams();
+        formattedParams.append('page', searchParams.page.toString());
+        formattedParams.append('per_page', searchParams.per_page.toString());
+        return formattedParams;
     }
 }
 exports.AbstractService = AbstractService;

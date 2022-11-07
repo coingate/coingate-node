@@ -1,4 +1,5 @@
 import { CoinGateClient } from '#Modules/Client/CoinGate.client';
+import { PaginationParams } from '#Modules/types';
 
 /**
  * Class representing a Withdrawals Service
@@ -21,9 +22,11 @@ export class WithdrawalsService extends CoinGateClient {
 
   /**
    * Retrieving all withdrawals
+   * @param {PaginationParams} params page number and number of withdrawals per page
    * @returns Withdrawals
    */
-  public getWithdrawals() {
-    return this.get({ path: '/v2/withdrawals' });
+  public getWithdrawals(params?: PaginationParams) {
+    const searchParams = this.formatPaginationParams(params);
+    return this.get({ path: '/v2/withdrawals', searchParams });
   }
 }

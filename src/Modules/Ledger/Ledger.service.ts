@@ -1,5 +1,5 @@
 import { CoinGateClient } from '#Modules/Client/CoinGate.client';
-import { ListAccountsParams } from './types';
+import { PaginationParams } from '#Modules/types';
 
 /**
  * Class representing a Ledger Service
@@ -22,10 +22,11 @@ export class LedgerService extends CoinGateClient {
 
   /**
    * Retrieving all ledger accounts.
-   * @param {ListAccountsParams} params page number and
+   * @param {PaginationParams} params page number and number of accounts per page
    * @returns Accounts
    */
-  public listAccounts(params: ListAccountsParams) {
-    return this.get({ path: '/v2/ledger/accounts', params });
+  public listAccounts(params?: PaginationParams) {
+    const searchParams = this.formatPaginationParams(params);
+    return this.get({ path: '/v2/ledger/accounts', searchParams });
   }
 }

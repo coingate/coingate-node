@@ -1,7 +1,5 @@
-import { OrderService, PublicService, RefundsService, AbstractService } from './Modules';
+import { OrderService, PublicService, RefundsService, AbstractService, WithdrawalsService, LedgerService } from './Modules';
 import { AppInfo, EnvironmentEnum } from './types';
-import { LedgerService } from './Modules/Ledger/Ledger.service';
-import { WithdrawalsService } from './Modules/Withdrawals/Withdrawals.service';
 /**
  * Class representing a Client
  * @extends AbstractService

@@ -5,8 +5,6 @@ const _Modules_1 = require("./Modules");
 const _Exception_1 = require("./Exception");
 const types_1 = require("./Modules/Client/types");
 const types_2 = require("./types");
-const Ledger_service_1 = require("./Modules/Ledger/Ledger.service");
-const Withdrawals_service_1 = require("./Modules/Withdrawals/Withdrawals.service");
 /**
  * Class representing a Client
  * @extends AbstractService
@@ -56,8 +54,8 @@ class Client extends _Modules_1.AbstractService {
         this.public = new _Modules_1.PublicService(apiBase);
         this.refunds = new _Modules_1.RefundsService(apiBase);
         this.order = new _Modules_1.OrderService(apiBase);
-        this.ledger = new Ledger_service_1.LedgerService(apiBase);
-        this.withdrawals = new Withdrawals_service_1.WithdrawalsService(apiBase);
+        this.ledger = new _Modules_1.LedgerService(apiBase);
+        this.withdrawals = new _Modules_1.WithdrawalsService(apiBase);
     }
     /**
      * Config validator

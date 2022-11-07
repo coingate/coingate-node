@@ -2,14 +2,14 @@ import {
   OrderService,
   PublicService,
   RefundsService,
-  AbstractService
+  AbstractService,
+  WithdrawalsService,
+  LedgerService
 } from '#Modules';
 import { InvalidArgumentException } from '#Exception';
 import { BaseUrlEnum } from '#Modules/Client/types';
 
 import { AppInfo, ConfigType, EnvironmentEnum } from './types';
-import { LedgerService } from '#Modules/Ledger/Ledger.service';
-import { WithdrawalsService } from '#Modules/Withdrawals/Withdrawals.service';
 
 /**
  * Class representing a Client

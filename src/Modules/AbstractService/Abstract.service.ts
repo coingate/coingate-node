@@ -50,13 +50,13 @@ export class AbstractService {
    * @param {PaginationParams} params
    */
   protected formatPaginationParams(params?: PaginationParams) {
-    params ? null : (params = this.defaultPaginationParams);
+    const searchParams = params || this.defaultPaginationParams;
 
-    const searchParams = new URLSearchParams();
+    const formattedParams = new URLSearchParams();
 
-    searchParams.append('page', params.page.toString());
-    searchParams.append('per_page', params.per_page.toString());
+    formattedParams.append('page', searchParams.page.toString());
+    formattedParams.append('per_page', searchParams.per_page.toString());
 
-    return searchParams;
+    return formattedParams;
   }
 }

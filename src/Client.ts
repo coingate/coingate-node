@@ -8,6 +8,7 @@ import { InvalidArgumentException } from '#Exception';
 import { BaseUrlEnum } from '#Modules/Client/types';
 
 import { AppInfo, ConfigType, EnvironmentEnum } from './types';
+import { LedgerService } from '#Modules/Ledger/Ledger.service';
 
 /**
  * Class representing a Client
@@ -17,7 +18,12 @@ export class Client extends AbstractService {
   /** Services array
    * @private services
    */
-  private services: [PublicService, OrderService, RefundsService];
+  private services: [
+    PublicService,
+    OrderService,
+    RefundsService,
+    LedgerService
+  ];
 
   /** App configuration
    * @private config
@@ -38,6 +44,11 @@ export class Client extends AbstractService {
    * @public order service
    */
   public order!: OrderService;
+
+  /**
+   * @public ledger service
+   */
+  public ledger!: LedgerService;
 
   /**
    * @public refunds service
@@ -65,7 +76,7 @@ export class Client extends AbstractService {
     const { apiBase } = this.config;
 
     this.prepareModules(apiBase);
-    this.services = [this.public, this.order, this.refunds];
+    this.services = [this.public, this.order, this.refunds, this.ledger];
     this.setApiKey(this.config.apiKey);
   }
 
@@ -91,6 +102,7 @@ export class Client extends AbstractService {
     this.public = new PublicService(apiBase);
     this.refunds = new RefundsService(apiBase);
     this.order = new OrderService(apiBase);
+    this.ledger = new LedgerService(apiBase);
   }
 
   /**

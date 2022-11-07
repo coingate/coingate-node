@@ -1,3 +1,4 @@
+import { GetAccountParamsType } from '#Modules/Ledger/types';
 import { PaymentParamType } from '#Modules/Order/types';
 import {
   GetCurrenciesData,
@@ -13,5 +14,6 @@ export type BuildPathInput = {
     | GetCurrenciesData
     | PaymentParamType
     | SeparatorType
-    | RefundParamsType;
+    | RefundParamsType
+    | GetAccountParamsType;
 };

@@ -9,6 +9,7 @@ import { BaseUrlEnum } from '#Modules/Client/types';
 
 import { AppInfo, ConfigType, EnvironmentEnum } from './types';
 import { LedgerService } from '#Modules/Ledger/Ledger.service';
+import { WithdrawalsService } from '#Modules/Withdrawals/Withdrawals.service';
 
 /**
  * Class representing a Client
@@ -22,7 +23,8 @@ export class Client extends AbstractService {
     PublicService,
     OrderService,
     RefundsService,
-    LedgerService
+    LedgerService,
+    WithdrawalsService
   ];
 
   /** App configuration
@@ -51,6 +53,11 @@ export class Client extends AbstractService {
   public ledger!: LedgerService;
 
   /**
+   * @public withdrawals service
+   */
+  public withdrawals!: WithdrawalsService;
+
+  /**
    * @public refunds service
    */
   public refunds!: RefundsService;
@@ -76,7 +83,13 @@ export class Client extends AbstractService {
     const { apiBase } = this.config;
 
     this.prepareModules(apiBase);
-    this.services = [this.public, this.order, this.refunds, this.ledger];
+    this.services = [
+      this.public,
+      this.order,
+      this.refunds,
+      this.ledger,
+      this.withdrawals
+    ];
     this.setApiKey(this.config.apiKey);
   }
 
@@ -103,6 +116,7 @@ export class Client extends AbstractService {
     this.refunds = new RefundsService(apiBase);
     this.order = new OrderService(apiBase);
     this.ledger = new LedgerService(apiBase);
+    this.withdrawals = new WithdrawalsService(apiBase);
   }
 
   /**

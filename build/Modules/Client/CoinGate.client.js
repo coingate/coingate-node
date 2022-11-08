@@ -27,7 +27,7 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         /**
          * @description coingate-sdk version
          */
-        this.VERSION = '1.1.1';
+        this.VERSION = '1.1.2';
         /**
          * @description default request timeout is 30 seconds
          */

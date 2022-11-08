@@ -16,7 +16,7 @@ export class CoinGateClient extends AbstractService {
   /**
    * @description coingate-sdk version
    */
-  private VERSION = '1.1.1';
+  private VERSION = '1.1.2';
 
   /**
    * @description Axios instance

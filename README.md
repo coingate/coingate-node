@@ -16,9 +16,21 @@ Please note, that for Sandbox you must generate separate API credentials on http
 
 Usage of CoinGate package looks like:
 
+Importing:
+
+```ts
+import { Client } from '@coingate/coingate-sdk';
+```
+
+Or
+
 ```ts
 const { Client } = require('@coingate/coingate-sdk');
+```
 
+In order, to use live mode, provide only api token.
+
+```ts
 const client = new Client('YOUR_API_TOKEN');
 ```
 

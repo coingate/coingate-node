@@ -27,7 +27,7 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
         /**
          * @description coingate-sdk version
          */
-        this.VERSION = '1.0.0';
+        this.VERSION = '1.1.2';
         /**
          * @description default request timeout is 30 seconds
          */
@@ -80,13 +80,14 @@ class CoinGateClient extends Abstract_service_1.AbstractService {
      * @param {GetRequestType} params
      * @returns {Promise}
      */
-    get({ path, params, apiKey }) {
+    get({ path, params, apiKey, searchParams }) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { data } = yield this.client.get(this.baseUrl + path, {
                     params,
                     headers: this.getDefaultHeaders(apiKey),
-                    timeout: this.timeout
+                    timeout: this.timeout,
+                    data: searchParams
                 });
                 return data;
             }

@@ -16,6 +16,20 @@ Please note, that for Sandbox you must generate separate API credentials on http
 
 Usage of CoinGate package looks like:
 
+Importing:
+
+```ts
+import { Client } from '@coingate/coingate-sdk';
+```
+
+Or
+
+```ts
+const { Client } = require('@coingate/coingate-sdk');
+```
+
+In order, to use live mode, provide only api token.
+
 ```ts
 const client = new Client('YOUR_API_TOKEN');
 ```
@@ -269,6 +283,112 @@ Or
 client.refunds
   .getRefunds()
   .then((refunds) => console.log(refunds))
+  .catch((error) => console.log(error));
+```
+
+### Ledger
+
+#### Get Account
+
+Retrieving specific account.
+
+```ts
+(async () => {
+  try {
+    const account = await client.ledger.getAccount('10801');
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
+})();
+```
+
+Or
+
+```ts
+client.ledger
+  .getAccount('10801')
+  .then((account) => console.log(account))
+  .catch((error) => console.log(error));
+```
+
+#### Get Accounts
+
+Retrieving all accounts.
+
+```ts
+const searchParams = { page: 2, per_page: 29 };
+
+(async () => {
+  try {
+    // search params is optional, and default is { page: 1, per_page: 100 }
+    const accounts = await client.ledger.getAccounts(searchParams);
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
+})();
+```
+
+Or
+
+```ts
+client.ledger
+  .getAccounts()
+  .then((accounts) => console.log(accounts))
+  .catch((error) => console.log(error));
+```
+
+### Withdrawals
+
+#### Get Withdrawal
+
+Retrieving specific withdrawal.
+
+```ts
+(async () => {
+  try {
+    const withdrawals = await client.withdrawals.getWithdrawal(0029);
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
+})();
+```
+
+Or
+
+```ts
+client.withdrawals
+  .getWithdrawal(0029)
+  .then((withdrawals) => console.log(withdrawal))
+  .catch((error) => console.log(error));
+```
+
+#### Get Withdrawals
+
+Retrieving all withdrawals.
+
+```ts
+const searchParams = { page: 2, per_page: 29 };
+
+(async () => {
+  try {
+    // search params is optional, and default is { page: 1, per_page: 100 }
+    const withdrawals = await client.withdrawals.getWithdrawals(searchParams);
+  } catch {
+    // Oops... Something went wrong...
+    console.error(error);
+  }
+})();
+```
+
+Or
+
+```ts
+client.withdrawals
+  .getWithdrawals()
+  .then((withdrawals) => console.log(withdrawals))
   .catch((error) => console.log(error));
 ```
 

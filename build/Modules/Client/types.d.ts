@@ -2,6 +2,7 @@ export declare type GetRequestType = {
     path: string;
     params?: object;
     apiKey?: string;
+    searchParams?: URLSearchParams;
 };
 export declare type HeadersType = {
     'Content-Type'?: string;

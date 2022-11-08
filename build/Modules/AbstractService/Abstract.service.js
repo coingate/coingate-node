@@ -6,6 +6,9 @@ const _Exception_1 = require("../../Exception");
  * Class representing Abstract service
  */
 class AbstractService {
+    constructor() {
+        this.defaultPaginationParams = { page: 1, per_page: 100 };
+    }
     /**
      * Builds path with provided params
      * @param {BuildPathInput} param
@@ -36,6 +39,17 @@ class AbstractService {
                 throw new _Exception_1.InvalidArgumentException('apiKey cannot contain whitespace');
             }
         }
+    }
+    /**
+     * Checks if params exists, if no then sets default params and formats it
+     * @param {PaginationParams} params
+     */
+    formatPaginationParams(params) {
+        const searchParams = params || this.defaultPaginationParams;
+        const formattedParams = new URLSearchParams();
+        formattedParams.append('page', searchParams.page.toString());
+        formattedParams.append('per_page', searchParams.per_page.toString());
+        return formattedParams;
     }
 }
 exports.AbstractService = AbstractService;

@@ -16,7 +16,7 @@ export class CoinGateClient extends AbstractService {
   /**
    * @description coingate-sdk version
    */
-  private VERSION = '1.0.0';
+  private VERSION = '1.1.2';
 
   /**
    * @description Axios instance
@@ -111,12 +111,13 @@ export class CoinGateClient extends AbstractService {
    * @param {GetRequestType} params
    * @returns {Promise}
    */
-  protected async get({ path, params, apiKey }: GetRequestType) {
+  protected async get({ path, params, apiKey, searchParams }: GetRequestType) {
     try {
       const { data } = await this.client.get(this.baseUrl + path, {
         params,
         headers: this.getDefaultHeaders(apiKey),
-        timeout: this.timeout
+        timeout: this.timeout,
+        data: searchParams
       });
 
       return data;

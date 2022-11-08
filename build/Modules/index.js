@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CoinGateClient = exports.AbstractService = exports.RefundsService = exports.PublicService = exports.OrderService = void 0;
+exports.WithdrawalsService = exports.LedgerService = exports.CoinGateClient = exports.AbstractService = exports.RefundsService = exports.PublicService = exports.OrderService = void 0;
 var Order_service_1 = require("./Order/Order.service");
 Object.defineProperty(exports, "OrderService", { enumerable: true, get: function () { return Order_service_1.OrderService; } });
 var Public_service_1 = require("./Public/Public.service");
@@ -11,3 +11,7 @@ var Abstract_service_1 = require("./AbstractService/Abstract.service");
 Object.defineProperty(exports, "AbstractService", { enumerable: true, get: function () { return Abstract_service_1.AbstractService; } });
 var CoinGate_client_1 = require("./Client/CoinGate.client");
 Object.defineProperty(exports, "CoinGateClient", { enumerable: true, get: function () { return CoinGate_client_1.CoinGateClient; } });
+var Ledger_service_1 = require("./Ledger/Ledger.service");
+Object.defineProperty(exports, "LedgerService", { enumerable: true, get: function () { return Ledger_service_1.LedgerService; } });
+var Withdrawals_service_1 = require("./Withdrawals/Withdrawals.service");
+Object.defineProperty(exports, "WithdrawalsService", { enumerable: true, get: function () { return Withdrawals_service_1.WithdrawalsService; } });

@@ -24,7 +24,13 @@ class Client extends _Modules_1.AbstractService {
         this.validateConfig();
         const { apiBase } = this.config;
         this.prepareModules(apiBase);
-        this.services = [this.public, this.order, this.refunds];
+        this.services = [
+            this.public,
+            this.order,
+            this.refunds,
+            this.ledger,
+            this.withdrawals
+        ];
         this.setApiKey(this.config.apiKey);
     }
     /**
@@ -48,6 +54,8 @@ class Client extends _Modules_1.AbstractService {
         this.public = new _Modules_1.PublicService(apiBase);
         this.refunds = new _Modules_1.RefundsService(apiBase);
         this.order = new _Modules_1.OrderService(apiBase);
+        this.ledger = new _Modules_1.LedgerService(apiBase);
+        this.withdrawals = new _Modules_1.WithdrawalsService(apiBase);
     }
     /**
      * Config validator

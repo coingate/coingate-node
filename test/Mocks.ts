@@ -62,3 +62,23 @@ export const mockListOrdersParams = {
   from: '2022-06-22',
   to: '2077-06-22'
 };
+
+export const mockAccountId = faker.datatype.number(500).toString();
+
+export const mockSearchParams = {
+  page: faker.datatype.number(100),
+  per_page: faker.datatype.number(100)
+};
+
+const getFormattedParams = () => {
+  const formattedParams = new URLSearchParams();
+
+  formattedParams.append('page', mockSearchParams.page.toString());
+  formattedParams.append('per_page', mockSearchParams.per_page.toString());
+
+  return formattedParams;
+};
+
+export const mockFormattedParams = getFormattedParams();
+
+export const mockWithdrawalId = faker.datatype.number(500);

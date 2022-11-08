@@ -1,4 +1,4 @@
-import { OrderService, PublicService, RefundsService, AbstractService } from './Modules';
+import { OrderService, PublicService, RefundsService, AbstractService, WithdrawalsService, LedgerService } from './Modules';
 import { AppInfo, EnvironmentEnum } from './types';
 /**
  * Class representing a Client
@@ -27,6 +27,14 @@ export declare class Client extends AbstractService {
      * @public order service
      */
     order: OrderService;
+    /**
+     * @public ledger service
+     */
+    ledger: LedgerService;
+    /**
+     * @public withdrawals service
+     */
+    withdrawals: WithdrawalsService;
     /**
      * @public refunds service
      */

@@ -1,4 +1,5 @@
 import { InvalidArgumentException } from '#Exception';
+import { PaginationParams } from '#Modules/types';
 
 import { BuildPathInput } from './types';
 
@@ -6,6 +7,8 @@ import { BuildPathInput } from './types';
  * Class representing Abstract service
  */
 export class AbstractService {
+  protected defaultPaginationParams = { page: 1, per_page: 100 };
+
   /**
    * Builds path with provided params
    * @param {BuildPathInput} param
@@ -40,5 +43,20 @@ export class AbstractService {
         throw new InvalidArgumentException('apiKey cannot contain whitespace');
       }
     }
+  }
+
+  /**
+   * Checks if params exists, if no then sets default params and formats it
+   * @param {PaginationParams} params
+   */
+  protected formatPaginationParams(params?: PaginationParams) {
+    const searchParams = params || this.defaultPaginationParams;
+
+    const formattedParams = new URLSearchParams();
+
+    formattedParams.append('page', searchParams.page.toString());
+    formattedParams.append('per_page', searchParams.per_page.toString());
+
+    return formattedParams;
   }
 }
